@@ -1,0 +1,33 @@
+<ul class="collection col s12 m10" *ngIf="notifications.length; else emptyNotification">
+  <li class="collection-item avatar"
+    *ngFor="let data of notifications"
+  >
+    <img class="circle" src="https://res.cloudinary.com/yedigaryan/image/upload/v{{data.senderId.picVersion}}/{{data.senderId.picId}}">
+    <span class="title">{{data.message}}</span>
+    <a class="secondary-content">
+      <i *ngIf="!data.read; else isRead" class="material-icons">brightness_1</i>
+      <ng-template #isRead>
+        <i class="material-icons">panorama_fish_eye</i>
+      </ng-template>
+    </a>
+    <p class="time">{{timeFromNow(data.created)}}</p>
+    <div>
+      <i class="material-icons"
+         (click)="markNotification(data)"
+         [ngClass]="data.read ? 'disabled': 'notDisabled'"
+      >
+        check
+      </i>
+      <i class="material-icons"  (click)="deleteNotification(data)">
+        delete_forever
+      </i>
+    </div>
+  </li>
+</ul>
+<ng-template #emptyNotification>
+  <div class="row">
+    <h3 class="text">
+      You have no notification
+    </h3>
+  </div>
+</ng-template>

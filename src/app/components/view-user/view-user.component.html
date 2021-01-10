@@ -1,0 +1,55 @@
+<div class="col s12 m12 l10">
+  <ul class="tabs" #tab>
+    <li class="tab col s4" (click)="changeTab('posts')">
+      <a href="" class="active" >
+        Post
+      </a>
+    </li>
+    <li class="tab col s4" (click)="changeTab('following')">
+      <a href="" class="active">
+        Following
+      </a>
+    </li>
+    <li class="tab col s4" (click)="changeTab('followers')">
+      <a href="" class="active">
+        Followers
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col s12 m4 l3">
+    <div class="row">
+      <div class="col s12" *ngIf="name">
+        <span class="title">{{name}}</span>
+        <h2 class="cityName">Country</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12 m8 l9" style="background: white;">
+      <div class="row">
+        <div class="col s12">
+          <div class="row" *ngIf="postsTab && posts">
+            <ul class="collection col s12 m12 l10" *ngFor="let post of posts">
+              <app-post-item [post]="post.postId"></app-post-item>
+            </ul>
+          </div>
+
+          <div class="row" *ngIf="followingsTab && following">
+            <div class="col s12 m4 l4" *ngFor="let data of following">
+              <app-people-item [user]="data.userFollowed"></app-people-item>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="followersTab">
+            <div class="col s12 m4 l4" *ngFor="let data of followers">
+              <app-people-item [user]="data.follower"></app-people-item>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

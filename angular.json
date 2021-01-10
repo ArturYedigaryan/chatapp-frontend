@@ -24,9 +24,12 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/materialize-css/dist/css/materialize.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/materialize-css/dist/js/materialize.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +122,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-chat"
+    }
+  },
+  "defaultProject": "angular-chat",
+  "cli": {
+    "analytics": "fb49d415-eefc-4ebd-b612-033c7916bb99"
+  }
 }

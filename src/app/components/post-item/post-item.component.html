@@ -1,0 +1,33 @@
+  <li class="collection-item avatar">
+    <img src="https://res.cloudinary.com/yedigaryan/image/upload/v{{post.user.picVersion || post.picVersion}}/{{post.user.picId ||post.picId}}" alt="" class="circle">
+    <span class="title">{{postItem.username}}</span>
+    <p class="time">{{timeFromNow(postItem.created)}}
+      <br> @{{postItem.user.city}} {{postItem.user.country}}
+    </p>
+  </li>
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-image" *ngIf="postItem.imgVersion">
+          <img class="postImage" src="https://res.cloudinary.com/yedigaryan/image/upload/v{{postItem.imgVersion}}/{{postItem.imgId}}" >
+        </div>
+        <div class="card-content">
+          <p>{{postItem.post}}</p>
+        </div>
+        <div class="card-action">
+          <i (click)="likePost(postItem)"
+            [ngClass]="(!checkInLikesArray(postItem.likes,user.username)) ? 'notLiked' : 'liked'"
+            class="material-icons">thumb_up</i>
+          <span class="iconSpan">
+            {{postItem.totalLikes}}
+          </span>
+          <i class="material-icons"
+             [ngClass]="(!checkInLikesArray(postItem.comments,user.username)) ? 'notLiked' : 'liked'"
+             (click)="openCommentBox(postItem)">chat</i>
+          <span class="iconSpan">
+            {{postItem.comments.length}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>

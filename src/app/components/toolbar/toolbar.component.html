@@ -1,0 +1,68 @@
+<nav class="nav-extended">
+  <div class="container">
+    <div class="nav-wrapper">
+      <a (click)="goToHome()" class="brand-logo">Chat App</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li class="dropdown-button dropdown-trigger" data-target="dropdown" #dropNotification>
+          <fa-icon [icon]="faGlobe" class="fa-1x badge"></fa-icon>
+          <span class="nav-label-icon" *ngIf="count.length">{{count.length}}</span>
+          <ul id='dropdown' class='dropdown-content col s12 collection'>
+            <li class="collection-item avatar" *ngFor="let data of notifications">
+              <img src="https://res.cloudinary.com/yedigaryan/image/upload/v{{data.senderId.picVersion}}/{{data.senderId.picId}}" class="circle">
+              <span [ngClass]="data.read ? 'isRead': 'unread'">{{data.message}}</span>
+              <p class="time">{{timeFromNow(data.created)}}</p>
+            </li>
+            <li *ngIf="!notifications.length">
+              <p class="text">No Notification</p>
+            </li>
+            <p class="secondary-content">
+              <a class="markAll btn" (click)="markAll()">Mark All As Read</a>
+            </p>
+          </ul>
+        </li>
+        <li class="dropdown-button dropdown-trigger1" data-target="dropdown1" #dropMessage>
+          <fa-icon [icon]="faBell" class="fa-1x badge"></fa-icon>
+          <span class="nav-label-icon" *ngIf="msgNumber">{{msgNumber}}</span>
+          <ul id='dropdown1' class='dropdown-content col s12 collection'>
+            <li class="collection-item avatar" *ngFor="let chat of chatList" (click)="goToChatPage(chat.receiverId.username)">
+              <img src="https://res.cloudinary.com/yedigaryan/image/upload/v{{chat.receiverId.picVersion}}/{{chat.receiverId.picId}}" class="circle">
+              <span class="title">
+                {{chat.receiverId.username}}
+                <a class="secondary-content">
+                  {{messageDate(chat.msgId.message[chat.msgId.message.length-1].createdAt)}}
+                </a>
+              </span>
+              <p>
+                {{chat.msgId.message[chat.msgId.message.length-1].body}}
+                <a class="secondary-content"
+                  *ngIf="!chat.msgId.message[chat.msgId.message.length-1].isRead
+                   && chat.receiverId.username !== chat.msgId.message[chat.msgId.message.length-1].receiverName">
+                  <i class="material-icons"  >brightness_1</i>
+                </a>
+
+                <a class="secondary-content" *ngIf="chat.msgId.message[chat.msgId.message.length-1].isRead">
+                  <i class="material-icons">panorama_fish_eye</i>
+                </a>
+
+              </p>
+            </li>
+            <p class="secondary-content">
+              <a class="markAll btn" (click)="markAllMessages()">Mark All As Read</a>
+            </p>
+          </ul>
+        </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li>
+          <a (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-content" >
+      <div class="nav-div" *ngIf="imageVersion && imageId">
+        <img class="circle responsive-img" src="https://res.cloudinary.com/yedigaryan/image/upload/v{{imageVersion}}/{{imageId}}">
+      </div>
+      <h1 class="profile-name">{{user.username}}</h1>
+      <!-- <p class="user-text">This is a text</p> -->
+    </div>
+  </div>
+</nav>
